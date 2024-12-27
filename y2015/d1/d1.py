@@ -24,6 +24,8 @@ class D1(AdventDay):
 
     def second(self, lines: list[str]) -> str:
 
+        result = ""
+
         for line in lines:
             floor = 0
             count = 0
@@ -35,9 +37,10 @@ class D1(AdventDay):
                     floor -= 1
 
                 if floor < 0:
-                    return f"{count}"
+                    result += f"{count}"
+                    break
 
-        return "-1"
+        return result
 
 
 if __name__ == "__main__":
