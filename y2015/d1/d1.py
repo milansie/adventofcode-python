@@ -7,15 +7,39 @@ class D1(AdventDay):
 
 
     def first(self, lines: list[str]) -> str:
-        print("first ")
-        return ""
+        result = ""
+
+        for line in lines:
+            floor = 0
+
+            for char in line:
+                if char == "(":
+                    floor += 1
+                elif char == ")":
+                    floor -= 1
+
+            result += f"{floor}"
+
+        return result
 
     def second(self, lines: list[str]) -> str:
-        print("second ")
-        return ""
+
+        for line in lines:
+            floor = 0
+            count = 0
+            for char in line:
+                count += 1
+                if char == "(":
+                    floor += 1
+                elif char == ")":
+                    floor -= 1
+
+                if floor < 0:
+                    return f"{count}"
+
+        return "-1"
 
 
 if __name__ == "__main__":
     d1 = D1()
-    result = d1.run()
-    print(result)
+    d1.run()

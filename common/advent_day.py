@@ -1,6 +1,8 @@
 import inspect
 import os
 from abc import abstractmethod
+from calendar import firstweekday
+from pathlib import Path
 
 
 class AdventDay:
@@ -39,30 +41,50 @@ class AdventDay:
     def run(self):
         self._log(f"Running {self.year}.{self.day}")
 
-        lines = self._load_input("input.txt")
+        input_test_1 = self._load_input("1_input.txt")
+        result_test_1 = "\n".join(self._load_input("1_result.txt"))
+
 
         # first with testing data
         self.IN_TEST = True
-        self.first(lines)
+        first_test_result = self.first(input_test_1)
+
+        if first_test_result != result_test_1:
+            self._log(f"ERROR First test failed: expected '{result_test_1}', but was '{first_test_result}'")
+        else:
+            self._log(f"First test passed: expected '{result_test_1}', was '{first_test_result}'")
 
         # first with production data
         self.IN_TEST = False
-        self.first(lines)
+        input_data = self._load_input("input.txt")
+        first_result = self.first(input_data)
+        self._log(f"First result: {first_result}")
 
         # second with testing data
         self.IN_TEST = True
-        self.second(lines)
+        input_test_2 = self._load_input("2_input.txt")
+        result_test_2 = "\n".join(self._load_input("2_result.txt"))
+
+        second_test_result = self.second(input_test_2)
+        if second_test_result != result_test_2:
+            self._log(f"ERROR Second test failed: expected '{result_test_2}', but was '{second_test_result}'")
+        else:
+            self._log(f"Second test passed: expected '{result_test_2}', was '{second_test_result}'")
 
         # second with production data
         self.IN_TEST = False
-        self.second(lines)
+        second_result = self.second(input_data)
+        self._log(f"Second result: {second_result}")
 
         print("---------------------------------------")
         print('\n'.join(self.log_lines))
         print("---------------------------------------")
 
     def _load_input(self, filename: str) -> list[str]:
-        path = f"resources/y{self.year}/d{self.day}/{filename}"
+        current_file = Path(inspect.getmodule(self).__file__)
+        root_dir = current_file.parent.parent.parent
+        path = root_dir / "resources" / f"y{self.year}" / f"d{self.day}" / filename
+
 
         with open(path, "r") as f:
             return f.readlines()
