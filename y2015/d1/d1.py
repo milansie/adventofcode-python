@@ -2,9 +2,6 @@ from common.advent_day import AdventDay
 
 
 class D1(AdventDay):
-    def __init__(self):
-        super().__init__()
-
 
     def first(self, lines: list[str]) -> str:
         result = ""
@@ -18,7 +15,7 @@ class D1(AdventDay):
                 elif char == ")":
                     floor -= 1
 
-            result += f"{floor}"
+            result += str(floor)
 
         return result
 
@@ -37,7 +34,7 @@ class D1(AdventDay):
                     floor -= 1
 
                 if floor < 0:
-                    result += f"{count}"
+                    result += str(count)
                     break
 
         return result
