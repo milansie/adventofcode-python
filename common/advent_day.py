@@ -93,5 +93,5 @@ class AdventDay:
 
 
         with open(path, "r") as f:
-            return f.readlines()
+            return f.read().splitlines()
 
