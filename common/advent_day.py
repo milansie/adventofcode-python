@@ -38,6 +38,9 @@ class AdventDay:
     def second(self, lines: list[str]) -> str:
         pass
 
+    def reinit(self):
+        pass
+
     def run(self):
         self._log(f"Running {self.year}.{self.day}")
 
@@ -46,6 +49,7 @@ class AdventDay:
 
         # first with testing data
         self.IN_TEST = True
+        self.reinit()
         start_time = time.perf_counter()
         first_test_result = self.first(input_test_1)
 
@@ -57,6 +61,7 @@ class AdventDay:
 
         # first with production data
         self.IN_TEST = False
+        self.reinit()
         input_data = self._load_input("input.txt")
         start_time = time.perf_counter()
         first_result = self.first(input_data)
@@ -65,6 +70,7 @@ class AdventDay:
 
         # second with testing data
         self.IN_TEST = True
+        self.reinit()
         input_test_2 = self._load_input("2_input.txt")
         result_test_2 = "\n".join(self._load_input("2_result.txt"))
 
@@ -78,6 +84,7 @@ class AdventDay:
 
         # second with production data
         self.IN_TEST = False
+        self.reinit()
         start_time = time.perf_counter()
         second_result = self.second(input_data)
         self._log(f"Second result: {second_result} in {int((time.perf_counter() - start_time) * 1000)} ms")
